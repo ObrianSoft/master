@@ -12,6 +12,7 @@ import { TimerOverviewComponent } from '../../components/timer/timer-overview/ti
   ],
   imports: [
     CommonModule
-  ]
+  ],
+  exports:[TimerDetailComponent, TimerOverviewComponent]
 })
 export class TimerModule { }
