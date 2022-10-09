@@ -5,7 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   // {path: <base-path>, component: <component>, outlet: <target_outlet_name>}
   {path: '', component: TimerOverviewComponent},
-  {path: '/timer', component: TimerOverviewComponent},
+  {path: 'timer', component: TimerOverviewComponent},
+  {path: 'timer/detail', component: TimerOverviewComponent},
 ];
 
 @NgModule({
