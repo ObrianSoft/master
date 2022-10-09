@@ -1,4 +1,9 @@
 <p>timer-detail works!</p>
 <!-- https://www.npmjs.com/package/angular-cd-timer -->
-<cd-timer #timer [startTime]="startTime" [endTime]="endTime" [countdown]="false" [format]="'intelli'"
+<cd-timer #timer [autoStart]="autoStart" [startTime]="startTime" [endTime]="endTime" [countdown]="true" [format]="'intelli'"
 (onComplete)="OnComplete" (onTick)="OnTick" (onStart)="OnStart" (onStop)="OnStop"></cd-timer>
+
+<button *ngIf="canStart" mat-raised-button (click)="start()" color="primary">Start</button>
+<button *ngIf="canStop" mat-raised-button (click)="stop()" color="primary">Stop</button>
+<button *ngIf="canResume" mat-raised-button (click)="resume()" color="primary">Resume</button>
+<button *ngIf="canReset" mat-raised-button (click)="reset()" color="primary">Reset</button>
