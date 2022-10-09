@@ -1,1 +1,4 @@
 <p>timer-detail works!</p>
+<!-- https://www.npmjs.com/package/angular-cd-timer -->
+<cd-timer #timer [startTime]="startTime" [endTime]="endTime" [countdown]="false" [format]="'intelli'"
+(onComplete)="OnComplete" (onTick)="OnTick" (onStart)="OnStart" (onStop)="OnStop"></cd-timer>
