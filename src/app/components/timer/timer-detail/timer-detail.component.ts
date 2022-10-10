@@ -18,8 +18,8 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('timer', { static: true })
   timer!: CdTimerComponent;
   @Input() startShown: boolean = true;
-  @Input() timerMins :number = 3;
-  startTime: number = this.timerMins * 60;
+  @Input() startTime: number = 3 * 60; // 3 minutes
+  @Input() speakerName?: string;
   autoStart = this.shouldAutoStart();
   endTime: number = 0;
 
@@ -29,17 +29,15 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   canResume: boolean = false;
   canReset: boolean = false;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     // Ensures timer initializes showing the time without continueing the timer
-    if(this.shouldAutoStart()) {
-      this.stop()
-      this.reset()
+    if (this.shouldAutoStart()) {
+      this.stop();
+      this.reset();
     }
   }
 
@@ -76,8 +74,8 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
     this.canReset = false;
   }
 
-  private shouldAutoStart(): boolean{
-    if (this.startShown){
+  private shouldAutoStart(): boolean {
+    if (this.startShown) {
       return true;
     }
     return false;
