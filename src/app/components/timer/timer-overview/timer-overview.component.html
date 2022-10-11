@@ -1,5 +1,5 @@
 <mat-grid-list cols="4" rowHeight="1.5:1">
-  <mat-grid-tile *ngFor="let speaker of speakers">
+  <mat-grid-tile *ngFor="let speaker of _timerService.speakers">
     <app-timer-detail
       [startShown]="true"
       [startTime]="speaker.timeSeconds"

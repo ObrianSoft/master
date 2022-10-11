@@ -1,3 +1,4 @@
+import { TimerService } from './../../../services/timer/timer.service';
 import { Speaker } from './../../../models/speaker.model';
 import {
   Component,
@@ -13,15 +14,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimerOverviewComponent implements OnInit {
-  constructor() {}
-  @Input() speakers?: Speaker[] = [
-    { name: '4n', timeSeconds: 3 * 60 },
-    { name: 'Simo', timeSeconds: 3 * 60 },
-    { name: 'Seviah', timeSeconds: 3 * 60 },
-    { name: 'Spiritman', timeSeconds: 3 * 60 },
-    { name: 'Numbpapaya', timeSeconds: 3 * 60 },
-    { name: 'Intelligencer', timeSeconds: 3 * 60 },
-  ];
+  public _timerService : TimerService = new TimerService;
+
+  constructor() {
+  }
 
   message:string | undefined;
   ngOnInit(): void {}
