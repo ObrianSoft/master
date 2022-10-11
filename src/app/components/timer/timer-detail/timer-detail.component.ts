@@ -5,6 +5,8 @@ import {
   ViewChild,
   Input,
   AfterViewInit,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { CdTimerComponent, TimeInterface } from 'angular-cd-timer';
 
@@ -20,6 +22,8 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   @Input() startShown: boolean = true;
   @Input() startTime: number = 3 * 60; // 3 minutes
   @Input() speakerName?: string;
+  @Output() messageEvent = new EventEmitter<string>();
+  messageState: string | undefined;
   autoStart = this.shouldAutoStart();
   endTime: number = 0;
 
@@ -46,7 +50,9 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   OnTick(timeInterface: TimeInterface) {}
   OnStop(component: CdTimerComponent) {}
   OnComplete(component: CdTimerComponent) {}
-
+  sendMessage() {
+    this.messageEvent.emit(this.messageState)
+  }
   // Methods
   start(): void {
     this.timer.start();

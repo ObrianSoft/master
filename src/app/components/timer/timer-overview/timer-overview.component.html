@@ -1,9 +1,10 @@
-<mat-grid-list cols="4" rowHeight="1:1">
+<mat-grid-list cols="4" rowHeight="1.5:1">
   <mat-grid-tile *ngFor="let speaker of speakers">
     <app-timer-detail
       [startShown]="true"
       [startTime]="speaker.timeSeconds"
       [speakerName]="speaker.name"
+      (messageEvent)="receiveMessage($event)"
     ></app-timer-detail
   ></mat-grid-tile>
 </mat-grid-list>

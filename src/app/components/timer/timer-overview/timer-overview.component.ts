@@ -23,5 +23,10 @@ export class TimerOverviewComponent implements OnInit {
     { name: 'Intelligencer', timeSeconds: 3 * 60 },
   ];
 
+  message:string | undefined;
   ngOnInit(): void {}
+  receiveMessage($event: any) {
+    this.message = $event
+  }
+
 }
