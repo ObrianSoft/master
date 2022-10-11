@@ -1,8 +1,8 @@
-import { TimerOverviewComponent } from './components/timer/timer-overview/timer-overview.component';
+import { FlowcycleOverviewComponent } from './components/flowcycle/flowcycle-overview/flowcycle-overview.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [{ path: '', component: TimerOverviewComponent }];
+const routes: Routes = [{ path: '', component: FlowcycleOverviewComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
