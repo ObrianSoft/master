@@ -1,8 +1,25 @@
 <app-timer-detail
-[startShown]="true"
-[startTime]="60 * 60 * 1.5"
-[speakerName]="'Long flow cycle'"
-(messageEvent)="receiveMessage($event)"
-></app-timer-detail
+  [startShown]="true"
+  [startTime]="60 * 60 * 1.5"
+  [speakerName]="'Long flow cycle'"
+  (timerDetailEventEmitter)="timerDetailEventHandler($event)"
+></app-timer-detail>
+
+<button
+  class="flow-cycle-toggle"
+  mat-button
+  mat-raised-button
+  color="secondary"
+  (click)="nextFlowCycle()"
 >
+  Next short cycle
+</button>
+
+<div class="total-overview">
+  <h1>Total:</h1>
+  <div *ngFor="let timeItem of _timeOverViewDict | keyvalue">
+
+    <b >{{timeItem.key}}: {{timeItem.value}} seconds</b>
+  </div>
+</div>
 <app-timer-overview></app-timer-overview>

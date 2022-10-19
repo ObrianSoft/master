@@ -12,10 +12,10 @@
         [endTime]="endTime"
         [countdown]="true"
         [format]="'intelli'"
-        (onComplete)="(OnComplete)"
-        (onTick)="(OnTick)"
-        (onStart)="(OnStart)"
-        (onStop)="(OnStop)"
+        (onComplete)="(OnComplete($event))"
+        (onTick)="(OnTick($event))"
+        (onStart)="(OnStart($event))"
+        (onStop)="(OnStop($event))"
       ></cd-timer></b
   ></mat-card-subtitle>
   <mat-card-actions>

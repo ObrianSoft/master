@@ -1,5 +1,4 @@
 import { TimerService } from './../../../services/timer/timer.service';
-import { Speaker } from './../../../models/speaker.model';
 import {
   Component,
   OnInit,
@@ -21,7 +20,7 @@ export class TimerOverviewComponent implements OnInit {
 
   message:string | undefined;
   ngOnInit(): void {}
-  receiveMessage($event: any) {
+  timerDetailEventHandler($event: any) {
     this.message = $event
   }
 

@@ -9,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { CdTimerComponent, TimeInterface } from 'angular-cd-timer';
+import { TimerService } from 'src/app/services/timer/timer.service';
 
 @Component({
   selector: 'app-timer-detail',
@@ -22,18 +23,20 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   @Input() startShown: boolean = true;
   @Input() startTime: number = 3 * 60; // 3 minutes
   @Input() speakerName?: string;
-  @Output() messageEvent = new EventEmitter<string>();
+  // https://dev.to/this-is-angular/component-communication-parent-to-child-child-to-parent-5800
+  @Output() timerDetailEventEmitter = new EventEmitter<string>();
   messageState: string | undefined;
   autoStart = this.shouldAutoStart();
   endTime: number = 0;
-
+  isHumanSpeaker :boolean = true;
   // State management
   canStart: boolean = true;
   canStop: boolean = false;
   canResume: boolean = false;
   canReset: boolean = false;
 
-  constructor() {}
+  constructor(private _timerService: TimerService) {
+  }
 
   ngOnInit(): void {}
 
@@ -47,11 +50,18 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
 
   // Events
   OnStart(component: CdTimerComponent) {}
-  OnTick(timeInterface: TimeInterface) {}
+  OnTick(timeInterface: TimeInterface) {
+    for (let index = 0; index < this._timerService.flowcycles.length; index++) {
+      const element = this._timerService.flowcycles[index];
+      if(element.name == this.speakerName && element.cycleNumber == this._timerService.currentFlowCycle){
+        this._timerService.flowcycles[index].timeSeconds +=1
+      }
+    }
+  }
   OnStop(component: CdTimerComponent) {}
   OnComplete(component: CdTimerComponent) {}
   sendMessage() {
-    this.messageEvent.emit(this.messageState)
+    this.timerDetailEventEmitter.emit(this.messageState)
   }
   // Methods
   start(): void {
@@ -70,6 +80,10 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
 
   resume(): void {
     this.timer.resume();
+    this.canStart = false;
+    this.canStop = true;
+    this.canReset = true;
+    this.canResume = false;
   }
 
   reset(): void {
