@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Speaker } from 'src/app/models/speaker.model';
+import { IFlowCycle } from 'src/app/models/speaker.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimerService {
-  public speakers?: Speaker[] = [
-    { name: '4n', timeSeconds: 3 * 60 },
-    { name: 'Simo', timeSeconds: 3 * 60 },
-    { name: 'Seviah', timeSeconds: 3 * 60 },
-    { name: 'Spiritman', timeSeconds: 3 * 60 },
-    { name: 'Numbpapaya', timeSeconds: 3 * 60 },
-    { name: 'Intelligencer', timeSeconds: 3 * 60 },
+
+  public currentFlowCycle = 0;
+
+  // Current turn
+  public flowcycles: IFlowCycle[] = [
+    { name: '4n', timeSeconds:0, cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Simo', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Seviah', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Spiritman', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Numbpapaya', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Intelligencer', timeSeconds: 0 , cycleNumber: 0 , totalTimeSeconds: 180},
   ];
+
+
+
   constructor() { }
 }
