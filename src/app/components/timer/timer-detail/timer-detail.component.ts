@@ -50,8 +50,6 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   // Events
   OnStart(component: CdTimerComponent) {}
   OnTick(timeInterface: TimeInterface) {
-    console.log('tick');
-
     for (let index = 0; index < this._timerService.flowcycles.length; index++) {
       const element = this._timerService.flowcycles[index];
       if (
@@ -61,9 +59,6 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
         this._timerService.flowcycles[index].timeSeconds += 1;
       }
     }
-
-    console.log(this._timerService.flowcycles);
-
   }
   OnStop(component: CdTimerComponent) {}
   OnComplete(component: CdTimerComponent) {}

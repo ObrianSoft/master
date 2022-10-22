@@ -18,8 +18,7 @@
 <div class="total-overview">
   <h1>Total:</h1>
   <div *ngFor="let timeItem of _timeOverViewDict | keyvalue">
-
-    <b >{{timeItem.key}}: {{timeItem.value}} seconds</b>
+    <b >{{timeItem.key}}: {{getOverViewTime(timeItem.value)}} </b>
   </div>
 </div>
 <app-timer-overview></app-timer-overview>
