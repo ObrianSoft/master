@@ -21,22 +21,21 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   @ViewChild('timer', { static: true })
   timer!: CdTimerComponent;
   @Input() startShown: boolean = true;
-  @Input() startTime: number = 3 * 60; // 3 minutes
+  @Input() startTime: number = 3 * 60; // 3 minutes TODO: have option to set this
   @Input() speakerName?: string;
   // https://dev.to/this-is-angular/component-communication-parent-to-child-child-to-parent-5800
   @Output() timerDetailEventEmitter = new EventEmitter<string>();
   messageState: string | undefined;
   autoStart = this.shouldAutoStart();
   endTime: number = 0;
-  isHumanSpeaker :boolean = true;
+  isHumanSpeaker: boolean = true;
   // State management
   canStart: boolean = true;
   canStop: boolean = false;
   canResume: boolean = false;
   canReset: boolean = false;
 
-  constructor(private _timerService: TimerService) {
-  }
+  constructor(private _timerService: TimerService) {}
 
   ngOnInit(): void {}
 
@@ -51,17 +50,25 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   // Events
   OnStart(component: CdTimerComponent) {}
   OnTick(timeInterface: TimeInterface) {
+    console.log('tick');
+
     for (let index = 0; index < this._timerService.flowcycles.length; index++) {
       const element = this._timerService.flowcycles[index];
-      if(element.name == this.speakerName && element.cycleNumber == this._timerService.currentFlowCycle){
-        this._timerService.flowcycles[index].timeSeconds +=1
+      if (
+        element.name == this.speakerName &&
+        element.cycleNumber == this._timerService.currentFlowCycle
+      ) {
+        this._timerService.flowcycles[index].timeSeconds += 1;
       }
     }
+
+    console.log(this._timerService.flowcycles);
+
   }
   OnStop(component: CdTimerComponent) {}
   OnComplete(component: CdTimerComponent) {}
   sendMessage() {
-    this.timerDetailEventEmitter.emit(this.messageState)
+    this.timerDetailEventEmitter.emit(this.messageState);
   }
   // Methods
   start(): void {

@@ -11,19 +11,54 @@ import { TimerService } from 'src/app/services/timer/timer.service';
 export class FlowcycleOverviewComponent implements OnInit {
   // public _timerService: TimerService = new TimerService();
   public _timeOverViewDict = {} as ITimeOverViewDict;
-
-  constructor( private _timerService: TimerService) {
-    setInterval(() => {this.calculateTotalTime()}, 500);
+  constructor(public _timerService: TimerService) {
+    setInterval(() => {
+      this.calculateTotalTime();
+    }, 500);
   }
 
   message: string | undefined;
-  ngOnInit(): void { }
+  ngOnInit(): void {}
   timerDetailEventHandler($event: any) {
     this.message = $event;
   }
 
-  // Save all flow cycle data, move UI to next cycle
-  nextFlowCycle() {}
+  nextFlowCycle() {
+    this._timerService.nextFlowCycle();
+  }
+
+  // // Save all flow cycle data, move UI to next cycle
+  // nextFlowCycle() {
+  //   // TODO: Add set of flowcycle time using UI options
+
+  //   // TODO: Stop all timers
+
+  //   let cycleNumber = this._timerService.currentFlowCycle;
+
+  //   // Get all users in current flowcycle and create new empty instances for next flowcycle
+  //   let flowcycles = this._timerService.flowcycles;
+  //   let nextFlowCycleUsers: string[] = [];
+
+  //   flowcycles.forEach((cycle) => {
+  //     if (cycle.cycleNumber == cycleNumber) {
+  //       nextFlowCycleUsers.push(cycle.name);
+  //     }
+  //   });
+
+  //   cycleNumber++;
+
+  //   // Create new cycles
+  //   nextFlowCycleUsers.forEach((user) => {
+  //     this._timerService.flowcycles.push({
+  //       name: user,
+  //       timeSeconds: 0,
+  //       cycleNumber,
+  //       totalTimeSeconds: this.flowCycleTotalTimeSeconds,
+  //     } as IFlowCycle);
+  //   });
+
+  //   this._timerService.currentFlowCycle++;
+  // }
 
   // TODO: optimize
   calculateTotalTime() {
@@ -32,24 +67,24 @@ export class FlowcycleOverviewComponent implements OnInit {
 
     // Fill names list
     flowcycles.forEach(function (cycle) {
-      if (names.lastIndexOf(cycle.name) === -1){
-        names.push(cycle.name)
-      };
+      if (names.lastIndexOf(cycle.name) === -1) {
+        names.push(cycle.name);
+      }
     });
 
     // Set names to dict, init at 0 seconds
     let timeOverViewDict = {} as ITimeOverViewDict;
-    names.forEach( (name) => {
+    names.forEach((name) => {
       timeOverViewDict[name] = 0;
     });
 
     // console.log(flowcycles);
 
-    flowcycles.forEach( (cycle) =>{
-        timeOverViewDict[cycle.name] += cycle.timeSeconds;
-      });
+    flowcycles.forEach((cycle) => {
+      timeOverViewDict[cycle.name] += cycle.timeSeconds;
+    });
 
     this._timeOverViewDict = timeOverViewDict;
-    return timeOverViewDict as ITimeOverViewDict
+    return timeOverViewDict as ITimeOverViewDict;
   }
 }
