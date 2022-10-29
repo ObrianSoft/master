@@ -1,3 +1,12 @@
-mat-card{
+mat-card {
   min-width: 10rem;
+}
+
+.card-header {
+  display: flex;
+  .close-button {
+    position: absolute;
+    right: 0rem;
+    top: 0rem;
+  }
 }

@@ -123,4 +123,8 @@ export class TimerDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.timer.startTime =startSeconds
     this.reset();
   }
+
+  deletePerson(speakerName: any){
+    this._timerService.deletePerson(speakerName)
+  }
 }

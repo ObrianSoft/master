@@ -1,7 +1,13 @@
 <!-- https://www.npmjs.com/package/angular-cd-timer -->
 
 <mat-card>
-  <mat-card-title *ngIf="speakerName">{{ speakerName }}</mat-card-title>
+  <div class="card-header">
+
+    <mat-card-title *ngIf="speakerName">{{ speakerName }}</mat-card-title>
+    <button class="close-button" matSuffix mat-icon-button aria-label="Clear" (click)="deletePerson(speakerName)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
   <mat-card-subtitle
     >Speaking time:
     <b

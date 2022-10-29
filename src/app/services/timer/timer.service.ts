@@ -39,6 +39,7 @@ export class TimerService {
     { name: 'Extra 2', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
   ];
 
+  constructor() {}
   // Save all flow cycle data, move UI to next cycle
   nextFlowCycle() {
     // TODO: Add set of flowcycle time using UI options
@@ -71,16 +72,26 @@ export class TimerService {
         this.updateTimer(cycle.name, cycle.totalTimeSeconds);
       }
     });
-
   }
 
   // Timer to send update to observers
-  public updateTimer(name: string, startTime: number){
-    this.subject.next({name, startTime});
+  public updateTimer(name: string, startTime: number) {
+    this.subject.next({ name, startTime });
   }
 
-  public timerObservable(): Observable<{name: string, startTime: number}> {
-       return this.subject.asObservable();
-  };
-  constructor() {}
+  public timerObservable(): Observable<{ name: string; startTime: number }> {
+    return this.subject.asObservable();
+  }
+
+  deletePerson(speakerName: string) {
+    console.log(this.flowcycles);
+
+    this.flowcycles.forEach((cycle, index) => {
+      if (cycle.cycleNumber == this.currentFlowCycle && cycle.name == speakerName) {
+        this.flowcycles.splice(index,1);
+        console.log('deleted');
+        this.updateTimer(cycle.name,cycle.totalTimeSeconds);
+      }
+    });
+  }
 }
