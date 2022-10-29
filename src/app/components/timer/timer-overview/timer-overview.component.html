@@ -3,7 +3,7 @@
     <app-timer-detail
       *ngIf="flowcycle.cycleNumber == _timerService.currentFlowCycle"
       [startShown]="true"
-      [startTime]="flowcycle.timeSeconds"
+      [startTimeVal]="flowcycle.totalTimeSeconds"
       [speakerName]="flowcycle.name"
       (timerDetailEventEmitter)="timerDetailEventHandler($event)"
     ></app-timer-detail

@@ -10,19 +10,87 @@ import 'moment-duration-format';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlowcycleOverviewComponent implements OnInit {
-  // public _timerService: TimerService = new TimerService();
   public _timeOverViewDict = {} as ITimeOverViewDict;
 
   constructor(public _timerService: TimerService) {
     setInterval(() => {
       this.calculateTotalTime();
-    }, 500);
+    }, 500); // TODO: optimize
   }
 
   message: string | undefined;
   ngOnInit(): void {}
+
+  // Long flow cycle timerdetail event handler
   timerDetailEventHandler($event: any) {
     this.message = $event;
+  }
+
+  // TODO: add interface
+  public speakingTimes: any = [
+    {
+      value: 60 * 10,
+      label: '10 minutes',
+    },
+    {
+      value: 60 * 5,
+      label: '5 minutes',
+    },
+    {
+      value: 60 * 3,
+      label: '3 minutes',
+    },
+    {
+      value: 60 * 1,
+      label: '1 minute',
+    },    {
+      value: 60 * 2,
+      label: '2 minutes',
+    },
+    {
+      value: 60 * 0.5,
+      label: '30 seconds',
+    },
+  ];
+
+  public selectedSpeakingTime: any;
+  speakingTimeSelection($event: any) {
+    this.selectedSpeakingTime = $event.value;
+    this._timerService.flowCycleTotalTimeSeconds = this.selectedSpeakingTime;
+  }
+
+  // TODO: add interface
+  public cycleTimes: any = [
+    {
+      value: 60 * 60 * 2.5,
+      label: '2.5 hours',
+    },
+    {
+      value: 60 * 60 * 2,
+      label: '2 hours',
+    },
+    {
+      value: 60 * 60 * 1.5,
+      label: '1.5 hours',
+    },
+    {
+      value: 60 * 60,
+      label: '1 hour',
+    },
+    {
+      value: 60 * 30,
+      label: '0.5 hour',
+    },
+  ];
+  public selectedCycleTime: any;
+  public longFlowCycleTimerName: string = 'Long flow cycle';
+  cycleTimeSelection($event: any) {
+    this.selectedCycleTime = $event.value;
+    this._timerService.longFlowCycleTotalTimeSeconds = this.selectedCycleTime;
+    this._timerService.updateTimer(
+      this.longFlowCycleTimerName,
+      this.selectedCycleTime
+    );
   }
 
   // Choice to not use humanize all the time due to weird behavior

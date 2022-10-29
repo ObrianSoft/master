@@ -1,22 +1,42 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { IFlowCycle } from 'src/app/models/speaker.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TimerService {
-
+  private subject: Subject<any> = new Subject<any>();
   public currentFlowCycle = 0;
-  public flowCycleTotalTimeSeconds = 180; // TODO: UI options
+  public flowCycleTotalTimeSeconds = 180;
+  public longFlowCycleTotalTimeSeconds = 60 * 60;
 
   // Current turn TODO: add user option
   public flowcycles: IFlowCycle[] = [
-    { name: '4n', timeSeconds:0, cycleNumber: 0, totalTimeSeconds: 180 },
-    { name: 'Simo', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
-    { name: 'Seviah', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
-    { name: 'Spiritman', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
-    { name: 'Numbpapaya', timeSeconds: 0 , cycleNumber: 0, totalTimeSeconds: 180 },
-    { name: 'Intelligencer', timeSeconds: 0 , cycleNumber: 0 , totalTimeSeconds: 180},
+    { name: '4n', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Simo', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Seviah', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
+    {
+      name: 'Spiritman',
+      timeSeconds: 0,
+      cycleNumber: 0,
+      totalTimeSeconds: 180,
+    },
+    {
+      name: 'Numbpapaya',
+      timeSeconds: 0,
+      cycleNumber: 0,
+      totalTimeSeconds: 180,
+    },
+    {
+      name: 'Intelligencer',
+      timeSeconds: 0,
+      cycleNumber: 0,
+      totalTimeSeconds: 180,
+    },
+    { name: 'Extra 1', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
+    { name: 'Extra 2', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
   ];
 
   // Save all flow cycle data, move UI to next cycle
@@ -46,7 +66,21 @@ export class TimerService {
       } as IFlowCycle);
     });
 
+    this.flowcycles.forEach((cycle) => {
+      if (cycle.cycleNumber == this.currentFlowCycle) {
+        this.updateTimer(cycle.name, cycle.totalTimeSeconds);
+      }
+    });
+
   }
 
-  constructor() { }
+  // Timer to send update to observers
+  public updateTimer(name: string, startTime: number){
+    this.subject.next({name, startTime});
+  }
+
+  public timerObservable(): Observable<{name: string, startTime: number}> {
+       return this.subject.asObservable();
+  };
+  constructor() {}
 }

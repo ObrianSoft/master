@@ -7,8 +7,11 @@ import {
   AfterViewInit,
   EventEmitter,
   Output,
+  OnDestroy,
 } from '@angular/core';
 import { CdTimerComponent, TimeInterface } from 'angular-cd-timer';
+import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { TimerService } from 'src/app/services/timer/timer.service';
 
 @Component({
@@ -17,17 +20,17 @@ import { TimerService } from 'src/app/services/timer/timer.service';
   styleUrls: ['./timer-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TimerDetailComponent implements OnInit, AfterViewInit {
+export class TimerDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('timer', { static: true })
   timer!: CdTimerComponent;
   @Input() startShown: boolean = true;
-  @Input() startTime: number = 3 * 60; // 3 minutes TODO: have option to set this
+  @Input() startTimeVal: number = 3 * 60; // 3 minutes TODO: have option to set this
+  @Input() endTimeVal: number = 0;
   @Input() speakerName?: string;
   // https://dev.to/this-is-angular/component-communication-parent-to-child-child-to-parent-5800
   @Output() timerDetailEventEmitter = new EventEmitter<string>();
   messageState: string | undefined;
-  autoStart = this.shouldAutoStart();
-  endTime: number = 0;
+  autoStartVal = this.shouldAutoStart();
   isHumanSpeaker: boolean = true;
   // State management
   canStart: boolean = true;
@@ -35,9 +38,22 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
   canResume: boolean = false;
   canReset: boolean = false;
 
-  constructor(private _timerService: TimerService) {}
+  timerResetObservable: Subscription;
+  constructor(private _timerService: TimerService) {
+    this.timerResetObservable = this._timerService
+      .timerObservable()
+      .subscribe((timer) => {
+        if (this.speakerName == timer.name) {
+          this.updateTimerSeconds(timer.startTime);
+        }
+      });
+  }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.timerResetObservable.unsubscribe();
+  }
 
   ngAfterViewInit(): void {
     // Ensures timer initializes showing the time without continueing the timer
@@ -101,5 +117,10 @@ export class TimerDetailComponent implements OnInit, AfterViewInit {
       return true;
     }
     return false;
+  }
+
+  public updateTimerSeconds(startSeconds: number) {
+    this.timer.startTime =startSeconds
+    this.reset();
   }
 }

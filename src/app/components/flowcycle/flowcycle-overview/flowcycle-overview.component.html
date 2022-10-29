@@ -1,10 +1,12 @@
 <app-timer-detail
   [startShown]="true"
-  [startTime]="60 * 60 * 1.5"
-  [speakerName]="'Long flow cycle'"
+  [startTimeVal]="_timerService.longFlowCycleTotalTimeSeconds"
+  [speakerName]="longFlowCycleTimerName"
   (timerDetailEventEmitter)="timerDetailEventHandler($event)"
 ></app-timer-detail>
-<h2 class="flow-cycle-count"> Flow Cycle: {{_timerService.currentFlowCycle}}</h2>
+<h2 class="flow-cycle-count">
+  Flow Cycle: {{ _timerService.currentFlowCycle + 1 }}
+</h2>
 <button
   class="flow-cycle-toggle"
   mat-button
@@ -14,11 +16,44 @@
 >
   Next short cycle
 </button>
+<br />
+
+<div class="cycle-time">
+  <mat-form-field appearance="fill">
+    <mat-label>Set long flow cycle time</mat-label>
+    <mat-select
+      [(ngModel)]="selectedCycleTime"
+      (selectionChange)="cycleTimeSelection($event)"
+    >
+      <mat-option
+        *ngFor="let cycleTime of cycleTimes"
+        [value]="cycleTime.value"
+        >{{ cycleTime.label }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="speaking-time">
+  <mat-form-field appearance="fill">
+    <mat-label>Set speaking time</mat-label>
+    <mat-select
+      [(ngModel)]="selectedSpeakingTime"
+      (selectionChange)="speakingTimeSelection($event)"
+    >
+      <mat-option
+        *ngFor="let speakingTime of speakingTimes"
+        [value]="speakingTime.value"
+        >{{ speakingTime.label }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</div>
 
 <div class="total-overview">
   <h1>Total:</h1>
   <div *ngFor="let timeItem of _timeOverViewDict | keyvalue">
-    <b >{{timeItem.key}}: {{getOverViewTime(timeItem.value)}} </b>
+    <b>{{ timeItem.key }}: {{ getOverViewTime(timeItem.value) }} </b>
   </div>
 </div>
 <app-timer-overview></app-timer-overview>
