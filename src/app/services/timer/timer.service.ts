@@ -35,8 +35,6 @@ export class TimerService {
       cycleNumber: 0,
       totalTimeSeconds: 180,
     },
-    { name: 'Extra 1', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
-    { name: 'Extra 2', timeSeconds: 0, cycleNumber: 0, totalTimeSeconds: 180 },
   ];
 
   constructor() {}
@@ -87,11 +85,34 @@ export class TimerService {
     console.log(this.flowcycles);
 
     this.flowcycles.forEach((cycle, index) => {
-      if (cycle.cycleNumber == this.currentFlowCycle && cycle.name == speakerName) {
-        this.flowcycles.splice(index,1);
-        console.log('deleted');
-        this.updateTimer(cycle.name,cycle.totalTimeSeconds);
+      if (
+        cycle.cycleNumber == this.currentFlowCycle &&
+        cycle.name == speakerName
+      ) {
+        this.flowcycles.splice(index, 1);
+        this.updateTimer(cycle.name, cycle.totalTimeSeconds);
       }
     });
+  }
+
+  addPerson(name: string) {
+    let exists = this.flowcycles.filter((cycle) => {
+      if (cycle.name == name && cycle.cycleNumber == this.currentFlowCycle) {
+        return cycle;
+      }
+      return;
+    }).length
+      ? true
+      : false;
+
+    if (exists === false) {
+      this.flowcycles.push({
+        name,
+        timeSeconds: 0,
+        cycleNumber: this.currentFlowCycle,
+        totalTimeSeconds: this.flowCycleTotalTimeSeconds,
+      } as IFlowCycle);
+      console.log(this.flowcycles);
+    }
   }
 }

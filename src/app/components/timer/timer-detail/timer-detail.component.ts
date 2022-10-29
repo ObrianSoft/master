@@ -7,11 +7,10 @@ import {
   AfterViewInit,
   EventEmitter,
   Output,
-  OnDestroy,
+  OnDestroy
 } from '@angular/core';
 import { CdTimerComponent, TimeInterface } from 'angular-cd-timer';
 import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
 import { TimerService } from 'src/app/services/timer/timer.service';
 
 @Component({

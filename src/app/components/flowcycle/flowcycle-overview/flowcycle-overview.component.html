@@ -50,10 +50,26 @@
   </mat-form-field>
 </div>
 
+<app-timer-overview></app-timer-overview>
+<mat-form-field class="add-speaker-formfield" appearance="fill">
+  <mat-label>Add speaker</mat-label>
+  <input matInput type="text" [(ngModel)]="newPerson" />
+</mat-form-field>
+
+<button
+  class="add-speaker-button"
+  mat-button
+  mat-raised-button
+  color="primary"
+  [disabled]="newPerson.length === 0"
+  (click)="addPerson(newPerson)"
+>
+  Add
+</button>
+
 <div class="total-overview">
   <h1>Total:</h1>
   <div *ngFor="let timeItem of _timeOverViewDict | keyvalue">
     <b>{{ timeItem.key }}: {{ getOverViewTime(timeItem.value) }} </b>
   </div>
 </div>
-<app-timer-overview></app-timer-overview>

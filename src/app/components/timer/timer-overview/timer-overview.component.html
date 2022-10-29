@@ -1,11 +1,14 @@
 <mat-grid-list cols="4" rowHeight="1.5:1">
-  <mat-grid-tile *ngFor="let flowcycle of _timerService.flowcycles">
-    <app-timer-detail
+  <div *ngFor="let flowcycle of _timerService.flowcycles">
+    <mat-grid-tile
       *ngIf="flowcycle.cycleNumber == _timerService.currentFlowCycle"
-      [startShown]="true"
-      [startTimeVal]="flowcycle.totalTimeSeconds"
-      [speakerName]="flowcycle.name"
-      (timerDetailEventEmitter)="timerDetailEventHandler($event)"
-    ></app-timer-detail
-  ></mat-grid-tile>
+    >
+      <app-timer-detail
+        [startShown]="true"
+        [startTimeVal]="flowcycle.totalTimeSeconds"
+        [speakerName]="flowcycle.name"
+        (timerDetailEventEmitter)="timerDetailEventHandler($event)"
+      ></app-timer-detail
+    ></mat-grid-tile>
+  </div>
 </mat-grid-list>

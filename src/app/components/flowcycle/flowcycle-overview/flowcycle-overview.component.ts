@@ -43,7 +43,8 @@ export class FlowcycleOverviewComponent implements OnInit {
     {
       value: 60 * 1,
       label: '1 minute',
-    },    {
+    },
+    {
       value: 60 * 2,
       label: '2 minutes',
     },
@@ -134,5 +135,10 @@ export class FlowcycleOverviewComponent implements OnInit {
 
     this._timeOverViewDict = timeOverViewDict;
     return timeOverViewDict as ITimeOverViewDict;
+  }
+
+  public newPerson: string = '';
+  addPerson(person: string) {
+    this._timerService.addPerson(person);
   }
 }

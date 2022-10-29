@@ -1,10 +1,5 @@
 import { TimerService } from './../../../services/timer/timer.service';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-timer-overview',
@@ -13,15 +8,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimerOverviewComponent implements OnInit {
-  public _timerService : TimerService = new TimerService;
+  constructor(public _timerService: TimerService) {}
 
-  constructor() {
-  }
-
-  message:string | undefined;
+  message: string | undefined;
   ngOnInit(): void {}
   timerDetailEventHandler($event: any) {
-    this.message = $event
+    this.message = $event;
   }
-
 }
