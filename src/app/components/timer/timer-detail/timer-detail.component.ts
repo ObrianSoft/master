@@ -30,7 +30,7 @@ export class TimerDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() timerDetailEventEmitter = new EventEmitter<string>();
   messageState: string | undefined;
   autoStartVal = this.shouldAutoStart();
-  isHumanSpeaker: boolean = true;
+  @Input() isHumanSpeaker: boolean = true;
   // State management
   canStart: boolean = true;
   canStop: boolean = false;

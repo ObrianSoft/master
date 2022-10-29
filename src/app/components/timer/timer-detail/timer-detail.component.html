@@ -4,7 +4,7 @@
   <div class="card-header">
 
     <mat-card-title *ngIf="speakerName">{{ speakerName }}</mat-card-title>
-    <button class="close-button" matSuffix mat-icon-button aria-label="Clear" (click)="deletePerson(speakerName)">
+    <button *ngIf="isHumanSpeaker" class="close-button" matSuffix mat-icon-button aria-label="Clear" (click)="deletePerson(speakerName)">
       <mat-icon>close</mat-icon>
     </button>
   </div>
