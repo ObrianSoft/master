@@ -115,4 +115,15 @@ export class TimerService {
       console.log(this.flowcycles);
     }
   }
+
+  // TODO: optimize
+  updateCurrentFlowCycleNumber() {
+    let maxFlowCycleNum = 0;
+    this.flowcycles.forEach(cycle =>{
+      if (cycle.cycleNumber > maxFlowCycleNum){
+        maxFlowCycleNum = cycle.cycleNumber;
+      }
+    })
+    this.currentFlowCycle = maxFlowCycleNum;
+  }
 }

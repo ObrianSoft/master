@@ -16,6 +16,7 @@ export class FlowcycleOverviewComponent implements OnInit {
     setInterval(() => {
       this.calculateTotalTime();
     }, 500); // TODO: optimize
+    this._timerService.updateCurrentFlowCycleNumber()
   }
 
   message: string | undefined;
