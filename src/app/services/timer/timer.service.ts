@@ -77,6 +77,14 @@ export class TimerService {
     this.subject.next({ name, startTime });
   }
 
+  public newSpeakingTimeUpdate(){
+    this.flowcycles.forEach((cycle) => {
+      if (cycle.cycleNumber == this.currentFlowCycle) {
+        cycle.totalTimeSeconds = this.flowCycleTotalTimeSeconds
+        this.updateTimer(cycle.name, this.flowCycleTotalTimeSeconds);
+      }
+    });
+  }
   public timerObservable(): Observable<{ name: string; startTime: number }> {
     return this.subject.asObservable();
   }

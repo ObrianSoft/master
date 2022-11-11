@@ -59,6 +59,7 @@ export class FlowcycleOverviewComponent implements OnInit {
   speakingTimeSelection($event: any) {
     this.selectedSpeakingTime = $event.value;
     this._timerService.flowCycleTotalTimeSeconds = this.selectedSpeakingTime;
+    this._timerService.newSpeakingTimeUpdate();
   }
 
   // TODO: add interface
