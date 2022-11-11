@@ -5,7 +5,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-timer-overview',
   templateUrl: './timer-overview.component.html',
   styleUrls: ['./timer-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TimerOverviewComponent implements OnInit {
   constructor(public _timerService: TimerService) {}

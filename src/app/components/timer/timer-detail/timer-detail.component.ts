@@ -17,7 +17,7 @@ import { TimerService } from 'src/app/services/timer/timer.service';
   selector: 'app-timer-detail',
   templateUrl: './timer-detail.component.html',
   styleUrls: ['./timer-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TimerDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('timer', { static: true })

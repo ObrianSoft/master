@@ -7,7 +7,7 @@ import 'moment-duration-format';
   selector: 'app-flowcycle-overview',
   templateUrl: './flowcycle-overview.component.html',
   styleUrls: ['./flowcycle-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class FlowcycleOverviewComponent implements OnInit {
   public _timeOverViewDict = {} as ITimeOverViewDict;
