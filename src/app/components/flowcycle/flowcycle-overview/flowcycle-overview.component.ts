@@ -1,8 +1,10 @@
+import { ITimerTickMessage } from './../../../models/timer.model';
 import { ITimeOverViewDict } from './../../../models/speaker.model';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import * as moment from 'moment';
 import 'moment-duration-format';
+import { IGenericMessage, MessageType } from 'src/app/models/message.model';
 @Component({
   selector: 'app-flowcycle-overview',
   templateUrl: './flowcycle-overview.component.html',
@@ -16,15 +18,17 @@ export class FlowcycleOverviewComponent implements OnInit {
     setInterval(() => {
       this.calculateTotalTime();
     }, 500); // TODO: optimize
-    this._timerService.updateCurrentFlowCycleNumber()
+    this._timerService.updateCurrentFlowCycleNumber();
   }
 
-  message: string | undefined;
   ngOnInit(): void {}
 
   // Long flow cycle timerdetail event handler
-  timerDetailEventHandler($event: any) {
-    this.message = $event;
+  timerDetailEventHandler($message: IGenericMessage) {
+    if ($message.messageType == MessageType.TimerTickMessage) {
+      let message: ITimerTickMessage = $message as ITimerTickMessage;
+      this._timerService.longFlowCycleSeconds = message.seconds;
+    }
   }
 
   // TODO: add interface

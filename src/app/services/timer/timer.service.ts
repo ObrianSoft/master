@@ -11,6 +11,7 @@ export class TimerService {
   public currentFlowCycle = 0;
   public flowCycleTotalTimeSeconds = 180;
   public longFlowCycleTotalTimeSeconds = 60 * 60;
+  public longFlowCycleSeconds = 60 * 60;  // Time left
 
   // Current turn TODO: add user option
   public flowcycles: IFlowCycle[] = [
@@ -124,7 +125,7 @@ export class TimerService {
     }
   }
 
-  // TODO: optimize
+  // TODO: optimize (low prio)
   updateCurrentFlowCycleNumber() {
     let maxFlowCycleNum = 0;
     this.flowcycles.forEach(cycle =>{
